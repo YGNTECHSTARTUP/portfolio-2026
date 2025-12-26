@@ -1,0 +1,523 @@
+"use client"
+
+import { useState, useEffect, useRef } from "react"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Music, Play, Youtube, Instagram, User, ExternalLink } from "lucide-react"
+import Image from "next/image"
+import { PixelatedCanvas } from "./ui/pixelated-canvas"
+import { ElementStackTimeline, TimelineItem } from "./elements-stack-timeline"
+import ProfileCard from "./profile-card"
+
+import { MusicPlayer } from "./music-player"
+import { HeroWithSidebar } from "./hero-with-sidebar"
+const timelineItems: TimelineItem[] = [
+  {
+    id: "Hydro",
+    label: "Hydro",
+    date: "Jan 2026",
+    description: "Distributed Systems",
+    gradientColor: "#0066ff",
+    icon: "/hydro.jpg",
+    status: "in-progress",
+    imge:"/hydroimge.jpeg"
+  },
+  {
+    id: "Dendro",
+    label: "Dendro",
+    date: "May 2026",
+    description: "Database",
+    gradientColor: "#00cc00",
+    icon: "/dendro.jpg",
+    status: "upcoming",
+    imge:""
+  },
+  {
+    id: "Anemo",
+    label: "Anemo",
+    date: "Sep 2026",
+    description: "TBA",
+    gradientColor: "#54DCB4",
+    icon: "/anemo.jpg",
+    status: "upcoming",
+    imge:""
+  },
+  {
+    id: "Pyro",
+    label: "Pyro",
+    date: "Dec 2026",
+    description: "TBA",
+    gradientColor: "#cc0000",
+    icon: "/pyro.jpg",
+    status: "upcoming",
+    imge:""
+  },
+  {
+    id: "Cryo",
+    label: "Cryo",
+    date: "April 2027",
+    description: "TBA",
+    gradientColor: "#D4F1F8",
+    icon: "/cryo.jpg",
+    status: "upcoming",
+    imge:""
+  },
+]
+export default function Portfolio() {
+  const [currentTime, setCurrentTime] = useState(
+    new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+  )
+  const [wheelRotation, setWheelRotation] = useState(0)
+
+  const clickSoundRef = useRef<HTMLAudioElement>(null)
+  const citySfxRef = useRef<HTMLAudioElement>(null)
+
+  // Update time every minute
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }))
+    }, 60000)
+    return () => clearInterval(timer)
+  }, [])
+
+  // Handle wheel scroll events
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      const delta = e.deltaY
+
+      // Rotate the wheel based on scroll
+      setWheelRotation((prev) => prev + delta * 0.5)
+
+      // Scroll the page
+      window.scrollBy({
+        top: delta,
+        behavior: "smooth",
+      })
+    }
+
+    window.addEventListener("wheel", handleWheel, { passive: false })
+    return () => window.removeEventListener("wheel", handleWheel)
+  }, [])
+
+  // Play city SFX when page loads
+  useEffect(() => {
+    const playAmbientSound = async () => {
+      if (citySfxRef.current) {
+        try {
+          citySfxRef.current.volume = 0.1
+          citySfxRef.current.loop = true
+          await citySfxRef.current.play()
+        } catch (error) {
+          console.log("Audio autoplay prevented:", error)
+        }
+      }
+    }
+
+    // Small delay to ensure audio is loaded
+    const timeout = setTimeout(playAmbientSound, 500)
+    return () => clearTimeout(timeout)
+  }, [])
+
+  // Scroll animation state
+  const [scrollAnimations, setScrollAnimations] = useState({
+    aboutSection: false,
+    projectsSection: false,
+    contactSection: false,
+  })
+
+  // Intersection Observer for scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.3,
+      rootMargin: "0px 0px -100px 0px",
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute("data-section")
+          if (sectionId) {
+            setScrollAnimations((prev) => ({
+              ...prev,
+              [sectionId]: true,
+            }))
+          }
+        }
+      })
+    }, observerOptions)
+
+    // Observe sections
+    const aboutSection = document.querySelector('[data-section="aboutSection"]')
+    const projectsSection = document.querySelector('[data-section="projectsSection"]')
+    const contactSection = document.querySelector('[data-section="contactSection"]')
+
+    if (aboutSection) observer.observe(aboutSection)
+    if (projectsSection) observer.observe(projectsSection)
+    if (contactSection) observer.observe(contactSection)
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Handle click sound
+  const handlePageClick = () => {
+    if (clickSoundRef.current) {
+      clickSoundRef.current.currentTime = 0
+      clickSoundRef.current.volume = 0.5
+      clickSoundRef.current.play().catch((error) => {
+        console.log("Click sound failed:", error)
+      })
+    }
+  }
+
+  // Handle wheel click to scroll down
+  const handleWheelClick = () => {
+    window.scrollBy({
+      top: window.innerHeight,
+      behavior: "smooth",
+    })
+    setWheelRotation((prev) => prev + 360)
+  }
+
+  const socialLinks = [
+    {
+      name: "Spotify",
+      url: "https://open.spotify.com/artist/33565ZDK6mAoui3MjCiVU3",
+      icon: <Music className="h-4 w-4" />,
+      color: "bg-green-500",
+    },
+    {
+      name: "Apple Music",
+      url: "https://music.apple.com/us/artist/ankerboi/1439733780",
+      icon: <Play className="h-4 w-4" />,
+      color: "bg-gray-800",
+    },
+    {
+      name: "YouTube",
+      url: "https://www.youtube.com/@ankerboii",
+      icon: <Youtube className="h-4 w-4" />,
+      color: "bg-red-500",
+    },
+    {
+      name: "Instagram",
+      url: "https://www.instagram.com/kristianjkryger/",
+      icon: <Instagram className="h-4 w-4" />,
+      color: "bg-pink-500",
+    },
+  ]
+
+  return (
+    <div
+      className="bg-black font-mono relative"
+      onClick={handlePageClick}
+      style={{ cursor: "url(/skull-cursor.png) 16 16, auto" }}
+    >
+      <style jsx>{`
+  * {
+    cursor: url(/skull-cursor.png) 16 16, auto !important;
+  }
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0px) rotate(12deg); }
+    50% { transform: translateY(-10px) rotate(12deg); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0px) rotate(-6deg); }
+    50% { transform: translateY(-15px) rotate(-6deg); }
+  }
+  @keyframes float3 {
+    0%, 100% { transform: translateY(0px) rotate(3deg); }
+    50% { transform: translateY(-8px) rotate(3deg); }
+  }
+  @keyframes float4 {
+    0%, 100% { transform: translateY(0px) rotate(-12deg); }
+    50% { transform: translateY(-12px) rotate(-12deg); }
+  }
+  @keyframes float5 {
+    0%, 100% { transform: translateY(0px) rotate(8deg); }
+    50% { transform: translateY(-14px) rotate(8deg); }
+  }
+  @keyframes float6 {
+    0%, 100% { transform: translateY(0px) rotate(-10deg); }
+    50% { transform: translateY(-9px) rotate(-10deg); }
+  }
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slideInUp {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .animate-slide-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+  }
+  .animate-slide-right {
+    animation: slideInRight 0.8s ease-out forwards;
+  }
+  .animate-slide-up {
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+  .animate-hidden {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+`}</style>
+
+      {/* Scroll Wheel - Fixed Position */}
+      <div className="fixed bottom-8 right-8 z-50">
+        <div
+          className="cursor-pointer hover:scale-110 transition-transform duration-200"
+          onClick={handleWheelClick}
+          style={{
+            transform: `rotate(${wheelRotation}deg)`,
+            transition: "transform 0.1s ease-out",
+          }}
+        >
+          <Image
+            src="/scroll-wheel.png"
+            alt="Scroll wheel"
+            width={80}
+            height={80}
+            className="opacity-70 hover:opacity-100 transition-opacity duration-200"
+          />
+        </div>
+      </div>
+
+      {/* Audio Elements */}
+      <audio ref={clickSoundRef} preload="auto">
+        <source src="/click-sound.wav" type="audio/wav" />
+      </audio>
+      <audio ref={citySfxRef} preload="auto">
+        <source src="/street-sfx.mp3" type="audio/mpeg" />
+      </audio>
+
+      {/* Mac OS Style Menu Bar */}
+      <div className="bg-black border-b border-gray-800 px-4 py-1 flex justify-between items-center text-white text-sm relative z-30 sticky top-0">
+        <div className="flex items-center space-x-4">
+          <DropdownMenu>
+            <DropdownMenuContent align="start" className="bg-gray-700 border-gray-600">
+              <DropdownMenuItem className="text-white hover:bg-gray-600">
+                <User className="h-4 w-4 mr-2" />
+                About ankerboi
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-gray-600" />
+              <DropdownMenuItem className="text-white hover:bg-gray-600">Preferences...</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="text-white hover:bg-gray-600 px-2 py-1 h-auto">
+                ankerboi
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="border-gray-600 bg-zinc-800 font-extrabold">
+              {socialLinks.map((link) => (
+                <DropdownMenuItem key={link.name} className="text-white hover:bg-gray-600">
+                  <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center w-full">
+                    {link.icon}
+                    <span className="ml-2">{link.name}</span>
+                    <ExternalLink className="h-3 w-3 ml-auto" />
+                  </a>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="text-white hover:bg-gray-600 px-2 py-1 h-auto">
+                leafboi
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="border-gray-600 bg-zinc-800 font-extrabold">
+              <DropdownMenuItem className="text-white hover:bg-gray-600">
+                <a
+                  href="https://traktrain.com/leafboi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center w-full"
+                >
+                  <Music className="h-4 w-4" />
+                  <span className="ml-2">beats4sale</span>
+                  <ExternalLink className="h-3 w-3 ml-auto" />
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-white hover:bg-gray-600">
+                <a
+                  href="https://open.spotify.com/artist/3x7GG5TBYUt5k6c9QNrWSy?si=Ac6icx3QS7mOLPNIZwNWaA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center w-full"
+                >
+                  <Music className="h-4 w-4" />
+                  <span className="ml-2">Spotify</span>
+                  <ExternalLink className="h-3 w-3 ml-auto" />
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-white hover:bg-gray-600">
+                <a
+                  href="https://www.youtube.com/@leafboi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center w-full"
+                >
+                  <Youtube className="h-4 w-4" />
+                  <span className="ml-2">YouTube</span>
+                  <ExternalLink className="h-3 w-3 ml-auto" />
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-white hover:bg-gray-600">
+                <a
+                  href="https://www.instagram.com/kristianjkryger/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center w-full"
+                >
+                  <Instagram className="h-4 w-4" />
+                  <span className="ml-2">Instagram</span>
+                  <ExternalLink className="h-3 w-3 ml-auto" />
+                </a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+
+        <div className="text-white">{currentTime}</div>
+      </div>
+
+      {/* First Section - Main Portfolio */}
+      <div className="p-8 min-h-screen flex flex-col items-center justify-center relative">
+        {/* Static Banner */}
+       <div className="w-full max-w-2xl">
+        <ProfileCard name="Gagan Yarramsetty" title="System Engineer | Rustacean🦀" subtitle="YGN | Xiao" imageUrl="/hydroimge.jpeg" />
+      </div>
+         <div className="mx-auto mt-8 absolute right-0 bottom-0 ">
+      <PixelatedCanvas
+        src="https://assets.aceternity.com/manu-red.png"
+        width={400}
+        height={500}
+        cellSize={3}
+        dotScale={0.9}
+        shape="square"
+        backgroundColor="#000000"
+        dropoutStrength={0.4}
+        interactive
+        distortionStrength={3}
+        distortionRadius={80}
+        distortionMode="swirl"
+        followSpeed={0.2}
+        jitterStrength={4}
+        jitterSpeed={4}
+        sampleAverage
+        tintColor="#FFFFFF"
+        tintStrength={0.2}
+       
+      />
+    </div>
+
+        {/* Overlapping Images */}
+        <div className="relative w-[600px] h-[500px]">
+          <div
+            className="absolute top-16 right-0 z-20 mx-28 my-4 opacity-50 opacity-40"
+            style={{ animation: "float2 4s ease-in-out infinite" }}
+          >
+            <Image
+              src="/glitch-art.png"
+              alt="Glitch art"
+              width={250}
+              height={250}
+              className="rounded border-2 border-gray-600"
+            />
+          </div>
+          <div
+            className="absolute bottom-16 left-8 z-30 mx-14 opacity-35"
+            style={{ animation: "float3 5s ease-in-out infinite" }}
+          >
+            <Image
+              src="/microphone.jpeg"
+              alt="Studio microphone"
+              width={220}
+              height={220}
+              className="rounded border-2 border-gray-600"
+            />
+          </div>
+          <div
+            className="absolute bottom-0 right-12 z-40 mx-11 my-32 opacity-70"
+            style={{ animation: "float4 7s ease-in-out infinite" }}
+          >
+            <Image
+              src="/dog.png"
+              alt="Dog on beach"
+              width={200}
+              height={200}
+              className="rounded border-2 border-gray-600"
+            />
+          </div>
+          <div
+            className="absolute top-32 left-0 z-25 mx-14 my-px py-0 px-1 opacity-50 opacity-45 opacity-40 opacity-35"
+            style={{ animation: "float5 5.5s ease-in-out infinite" }}
+          >
+            <Image
+              src="/caduceus-portrait.png"
+              alt="Portrait with caduceus"
+              width={240}
+              height={240}
+              className="rounded border-2 border-gray-600"
+            />
+          </div>
+          <div
+            className="absolute bottom-8 right-48 z-35 py-px my-1 px-0 mx-1.5 opacity-45"
+            style={{ animation: "float6 4.5s ease-in-out infinite" }}
+          >
+            <Image
+              src="/candle.jpeg"
+              alt="Lit candle"
+              width={190}
+              height={190}
+              className="rounded border-2 border-gray-600"
+            />
+          </div>
+        </div>
+      </div>
+
+     
+<HeroWithSidebar/>
+      {/* Third Section - Projects */}
+      <div>
+     <ElementStackTimeline items={timelineItems} />
+      </div>
+
+
+      {/* Fourth Section - Contact */}
+      
+    </div>
+  )
+}
