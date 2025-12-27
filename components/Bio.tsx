@@ -14,10 +14,15 @@ export default function Bio() {
         <br/>
     
      <p>
-        19 y/o developer learning systems from first principles.
+        19 y/o <span className="text-yellow-400">developer
+          </span> learning systems from <span className="text-red-500">
+            first principles.
+            </span>
         </p>
         <p>
-                Student. Full-stack dev.
+                Student. <span className="text-blue-500">
+                  Full-stack dev.
+                  </span>
         </p>
 
  
@@ -25,15 +30,21 @@ export default function Bio() {
      
       <br></br>
       <p>
-        Mostly work in Rust and TypeScript — my entire toolkit is Rust-powered.
+        Mostly work in <span className="text-yellow-400">
+          Rust 
+          </span> and <span className="text-blue-400">
+            TypeScript
+            </span> — my entire toolkit is <span className="text-orange-400">Rust-powered.</span>
       </p>
       <br/>
-      <p>I tinker, ship things, and occasionally shitpost on X.</p>
+      <p>I <span className="text-purple-400">
+        tinker,
+        </span> ship things, and occasionally shitpost on <span className="text-yellow-500">X.</span></p>
       <br/>
-      <p>Gamer. Music on while coding.</p>
-      <p>Learning Mandarin, calisthenics, and Tai Chi.</p>
+      <p>Gamer. <span className="text-blue-500">Music on while coding.</span></p>
+      <p>Learning <span className="text-green-500">calisthenics</span>, Mandarin and <span className="text-purple-500">Tai Chi.</span></p>
       <br/>
-      <p>Trying to get wings.</p>
+      <p>Trying to get <span className="text-yellow-400">wings.</span></p>
     </section>
   );
 }

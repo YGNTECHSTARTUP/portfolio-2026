@@ -96,7 +96,7 @@ export function RecentProjects() {
       {/* Header */}
       <div className="flex items-center gap-2 mb-6">
         <Github className="w-5 h-5 text-slate-300" />
-        <h2 className="text-xl font-bold text-slate-200">Latest Projects</h2>
+        <h2 className="text-xl font-bold text-slate-200">Latest Repositories</h2>
       </div>
 
       {/* Projects List */}

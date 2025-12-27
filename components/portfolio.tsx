@@ -9,14 +9,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Music, Play, Youtube, Instagram, User, ExternalLink } from "lucide-react"
+import { Youtube, User, ExternalLink, Linkedin, Twitter, Mail } from "lucide-react"
 import Image from "next/image"
-import { PixelatedCanvas } from "./ui/pixelated-canvas"
+// import { PixelatedCanvas } from "./ui/pixelated-canvas"
 import { ElementStackTimeline, TimelineItem } from "./elements-stack-timeline"
 import ProfileCard from "./profile-card"
 
-import { MusicPlayer } from "./music-player"
+
 import { HeroWithSidebar } from "./hero-with-sidebar"
+import ProjectPage from "./projects"
+
+import { ExperienceEducationGrid } from "./experience-education"
+
 const timelineItems: TimelineItem[] = [
   {
     id: "Hydro",
@@ -36,7 +40,7 @@ const timelineItems: TimelineItem[] = [
     gradientColor: "#00cc00",
     icon: "/dendro.jpg",
     status: "upcoming",
-    imge:""
+    imge:"/dendroimg.jpeg"
   },
   {
     id: "Anemo",
@@ -187,15 +191,15 @@ export default function Portfolio() {
 
   const socialLinks = [
     {
-      name: "Spotify",
-      url: "https://open.spotify.com/artist/33565ZDK6mAoui3MjCiVU3",
-      icon: <Music className="h-4 w-4" />,
+      name: "Linkedin",
+      url: "https://www.linkedin.com/in/ygn/",
+      icon: <Linkedin/>,
       color: "bg-green-500",
     },
     {
-      name: "Apple Music",
-      url: "https://music.apple.com/us/artist/ankerboi/1439733780",
-      icon: <Play className="h-4 w-4" />,
+      name: "Twitter",
+      url: "https://x.com/ygndotgg",
+      icon: <Twitter className="h-4 w-4" />,
       color: "bg-gray-800",
     },
     {
@@ -205,9 +209,9 @@ export default function Portfolio() {
       color: "bg-red-500",
     },
     {
-      name: "Instagram",
-      url: "https://www.instagram.com/kristianjkryger/",
-      icon: <Instagram className="h-4 w-4" />,
+      name: "Mail",
+      url: "https://mailto:gaganyarramsetty@gmail.com",
+      icon: <Mail className="h-4 w-4" />,
       color: "bg-pink-500",
     },
   ]
@@ -321,12 +325,13 @@ export default function Portfolio() {
 
       {/* Mac OS Style Menu Bar */}
       <div className="bg-black border-b border-gray-800 px-4 py-1 flex justify-between items-center text-white text-sm relative z-30 sticky top-0">
-        <div className="flex items-center space-x-4">
+        <div className="flex  space-x-4">
+        
           <DropdownMenu>
             <DropdownMenuContent align="start" className="bg-gray-700 border-gray-600">
               <DropdownMenuItem className="text-white hover:bg-gray-600">
                 <User className="h-4 w-4 mr-2" />
-                About ankerboi
+                
               </DropdownMenuItem>
               <DropdownMenuSeparator className="bg-gray-600" />
               <DropdownMenuItem className="text-white hover:bg-gray-600">Preferences...</DropdownMenuItem>
@@ -336,7 +341,7 @@ export default function Portfolio() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="text-white hover:bg-gray-600 px-2 py-1 h-auto">
-                ankerboi
+              Gagan Yarramsetty
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="border-gray-600 bg-zinc-800 font-extrabold">
@@ -351,75 +356,27 @@ export default function Portfolio() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-gray-600 px-2 py-1 h-auto">
-                leafboi
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="border-gray-600 bg-zinc-800 font-extrabold">
-              <DropdownMenuItem className="text-white hover:bg-gray-600">
-                <a
-                  href="https://traktrain.com/leafboi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center w-full"
-                >
-                  <Music className="h-4 w-4" />
-                  <span className="ml-2">beats4sale</span>
-                  <ExternalLink className="h-3 w-3 ml-auto" />
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-white hover:bg-gray-600">
-                <a
-                  href="https://open.spotify.com/artist/3x7GG5TBYUt5k6c9QNrWSy?si=Ac6icx3QS7mOLPNIZwNWaA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center w-full"
-                >
-                  <Music className="h-4 w-4" />
-                  <span className="ml-2">Spotify</span>
-                  <ExternalLink className="h-3 w-3 ml-auto" />
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-white hover:bg-gray-600">
-                <a
-                  href="https://www.youtube.com/@leafboi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center w-full"
-                >
-                  <Youtube className="h-4 w-4" />
-                  <span className="ml-2">YouTube</span>
-                  <ExternalLink className="h-3 w-3 ml-auto" />
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-white hover:bg-gray-600">
-                <a
-                  href="https://www.instagram.com/kristianjkryger/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center w-full"
-                >
-                  <Instagram className="h-4 w-4" />
-                  <span className="ml-2">Instagram</span>
-                  <ExternalLink className="h-3 w-3 ml-auto" />
-                </a>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+        
         </div>
-
+       
+ <div>Home</div>
+        <div>About</div>
+        <div>Experience</div>
+        <div>Projects</div>
+        <div>Resonance</div>
+        <div>Contact</div>
         <div className="text-white">{currentTime}</div>
+       
+       
       </div>
 
       {/* First Section - Main Portfolio */}
       <div className="p-8 min-h-screen flex flex-col items-center justify-center relative">
         {/* Static Banner */}
        <div className="w-full max-w-2xl">
-        <ProfileCard name="Gagan Yarramsetty" title="System Engineer | Rustacean🦀" subtitle="YGN | Xiao" imageUrl="/hydroimge.jpeg" />
+        <ProfileCard name="Gagan Yarramsetty" title="System Engineer | Rustacean🦀" subtitle="YGN | Xiao" imageUrl="/ban.jpeg" />
       </div>
-         <div className="mx-auto mt-8 absolute right-0 bottom-0 ">
+         {/* <div className="mx-auto mt-8 absolute right-0 bottom-0 ">
       <PixelatedCanvas
         src="https://assets.aceternity.com/manu-red.png"
         width={400}
@@ -441,7 +398,7 @@ export default function Portfolio() {
         tintStrength={0.2}
        
       />
-    </div>
+    </div> */}
 
         {/* Overlapping Images */}
         <div className="relative w-[600px] h-[500px]">
@@ -450,7 +407,7 @@ export default function Portfolio() {
             style={{ animation: "float2 4s ease-in-out infinite" }}
           >
             <Image
-              src="/glitch-art.png"
+              src="/dendroimg.jpeg"
               alt="Glitch art"
               width={250}
               height={250}
@@ -462,7 +419,7 @@ export default function Portfolio() {
             style={{ animation: "float3 5s ease-in-out infinite" }}
           >
             <Image
-              src="/microphone.jpeg"
+              src="/g2.jpeg"
               alt="Studio microphone"
               width={220}
               height={220}
@@ -474,7 +431,7 @@ export default function Portfolio() {
             style={{ animation: "float4 7s ease-in-out infinite" }}
           >
             <Image
-              src="/dog.png"
+              src="/hydroimge.jpeg"
               alt="Dog on beach"
               width={200}
               height={200}
@@ -482,11 +439,11 @@ export default function Portfolio() {
             />
           </div>
           <div
-            className="absolute top-32 left-0 z-25 mx-14 my-px py-0 px-1 opacity-50 opacity-45 opacity-40 opacity-35"
+            className="absolute top-32 left-0 z-25 mx-14 my-px py-0 px-1 opacity-50 "
             style={{ animation: "float5 5.5s ease-in-out infinite" }}
           >
             <Image
-              src="/caduceus-portrait.png"
+              src="/g1.jpeg"
               alt="Portrait with caduceus"
               width={240}
               height={240}
@@ -498,7 +455,7 @@ export default function Portfolio() {
             style={{ animation: "float6 4.5s ease-in-out infinite" }}
           >
             <Image
-              src="/candle.jpeg"
+              src="/g3.jpeg"
               alt="Lit candle"
               width={190}
               height={190}
@@ -512,6 +469,15 @@ export default function Portfolio() {
 <HeroWithSidebar/>
       {/* Third Section - Projects */}
       <div>
+          <div className="max-w-6xl mx-auto">
+        <div className="mb-2">
+          <h1 className="text-4xl font-bold text-slate-50 mb-2">Experience & Education</h1>
+          <p className="text-slate-400 text-lg">Building my professional journey</p>
+        </div>
+        <ExperienceEducationGrid />
+      </div>
+       {/* <ExperienceEducationGrid/> */}
+        <ProjectPage/>
      <ElementStackTimeline items={timelineItems} />
       </div>
 

@@ -112,7 +112,7 @@ const TimelineCard = ({
 }
 
 export function ElementStackTimeline({
-  title = "5 Element Stack",
+  title = "Elemental Resonance",
   subtitle = "Timeline",
   items,
   gradientStart = "#0066ff",
