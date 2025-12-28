@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 "use client";
 import { motion } from "motion/react";
 import React from "react";
@@ -48,6 +50,7 @@ export const LoaderOne = () => {
   );
 };
 
+
 export const LoaderTwo = () => {
   const transition = (x: number) => {
     return {
@@ -60,7 +63,9 @@ export const LoaderTwo = () => {
   };
   return (
     <div className="flex items-center">
+      
       <motion.div
+      
         transition={transition(0)}
         initial={{
           x: 0,

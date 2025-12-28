@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useRef } from "react"
-import { animate, stagger } from "motion"
+import { animate, stagger } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 type AnimatedHeadingProps = {
@@ -25,12 +25,7 @@ type AnimatedHeadingProps = {
 export default function AnimatedHeading({
   className,
   lines,
-  startDelay = 0,
-  durationPerWord = 0.9,
-  staggerPerWord = 0.08,
-  lineDelay = 0.3,
-  fromBlurPx = 16,
-  fromTranslateYPx = 14,
+ 
 }: AnimatedHeadingProps) {
   const headingRef = useRef<HTMLHeadingElement | null>(null)
 
@@ -40,43 +35,7 @@ export default function AnimatedHeading({
     return lines.map((line) => line.split(/(\s+)/))
   }, [lines])
 
-  useEffect(() => {
-    if (!headingRef.current) return
-    const wordSpans = headingRef.current.querySelectorAll<HTMLSpanElement>("[data-word]")
-
-    // Initialize all words to the starting state
-    wordSpans.forEach((el) => {
-      el.style.opacity = "0"
-      el.style.filter = `blur(${fromBlurPx}px)`
-      el.style.transform = `translateY(${fromTranslateYPx}px)`
-    })
-
-    // Group words by line index for line-by-line staggering
-    const wordsByLine = new Map<number, HTMLSpanElement[]>()
-    wordSpans.forEach((el) => {
-      const lineIndexAttr = el.getAttribute("data-line-index")
-      const lineIndex = lineIndexAttr ? Number(lineIndexAttr) : 0
-      const arr = wordsByLine.get(lineIndex) ?? []
-      arr.push(el)
-      wordsByLine.set(lineIndex, arr)
-    })
-
-    // Animate each line with an additional line offset, words within the line staggered
-    ;[...wordsByLine.entries()]
-      .sort((a, b) => a[0] - b[0])
-      .forEach(([lineIndex, words]) => {
-        animate(
-          words,
-          { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
-          {
-            duration: durationPerWord,
-            delay: stagger(staggerPerWord, { start: startDelay + lineIndex * lineDelay }),
-            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-          }
-        )
-      })
-  }, [startDelay])
-
+ 
   return (
     <h1 ref={headingRef} className={cn(className)} aria-label={lines.join(" ")}> 
       {/* Visual characters for animation; hidden from screen readers */}
