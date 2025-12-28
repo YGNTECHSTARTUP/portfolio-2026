@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Github, Twitter, Linkedin, MessageSquare, Mail, FileText } from 'lucide-react'
+import { Github, Twitter, Linkedin, MessageSquare, Mail, } from 'lucide-react'
 
 const socialLinks = [
   { icon: Github, href: 'https://github.com/YGNTECHSTARTUP', label: 'GitHub' },
   { icon: Twitter, href: 'https://x.com/ygndotgg', label: 'X (Twitter)' },
-  { icon: Linkedin, href: 'https://linkedin.com/in/ygntech', label: 'LinkedIn' },
+  { icon: Linkedin, href: 'https://linkedin.com/in/ygn', label: 'LinkedIn' },
   { icon: MessageSquare, href: 'https://discord.com/users/ygntechstartup', label: 'Discord' },
-  { icon: Mail, href: 'mailto:ygntechstartup@gmail.com', label: 'Email' },
+  { icon: Mail, href: 'mailto:gaganyarramsetty@gmail.com', label: 'Email' },
  
 ]
 
