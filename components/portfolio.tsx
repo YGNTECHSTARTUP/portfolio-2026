@@ -1,15 +1,4 @@
-"use client"
 
-import { useState, useEffect, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Youtube, User, ExternalLink, Linkedin, Twitter, Mail } from "lucide-react"
 import Image from "next/image"
 // import { PixelatedCanvas } from "./ui/pixelated-canvas"
 import { ElementStackTimeline, TimelineItem } from "./elements-stack-timeline"
@@ -20,6 +9,8 @@ import { HeroWithSidebar } from "./hero-with-sidebar"
 import ProjectPage from "./projects"
 
 import { ExperienceEducationGrid } from "./experience-education"
+
+import ScrollController from "./ScrollWheel"
 
 const timelineItems: TimelineItem[] = [
   {
@@ -74,155 +65,15 @@ const timelineItems: TimelineItem[] = [
   },
 ]
 export default function Portfolio() {
-  const [currentTime, setCurrentTime] = useState(
-    new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-  )
-  const [wheelRotation, setWheelRotation] = useState(0)
-
-  const clickSoundRef = useRef<HTMLAudioElement>(null)
-  const citySfxRef = useRef<HTMLAudioElement>(null)
-
-  // Update time every minute
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }))
-    }, 60000)
-    return () => clearInterval(timer)
-  }, [])
-
-  // Handle wheel scroll events
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault()
-      const delta = e.deltaY
-
-      // Rotate the wheel based on scroll
-      setWheelRotation((prev) => prev + delta * 0.5)
-
-      // Scroll the page
-      window.scrollBy({
-        top: delta,
-        behavior: "smooth",
-      })
-    }
-
-    window.addEventListener("wheel", handleWheel, { passive: false })
-    return () => window.removeEventListener("wheel", handleWheel)
-  }, [])
-
-  // Play city SFX when page loads
-  useEffect(() => {
-    const playAmbientSound = async () => {
-      if (citySfxRef.current) {
-        try {
-          citySfxRef.current.volume = 0.1
-          citySfxRef.current.loop = true
-          await citySfxRef.current.play()
-        } catch (error) {
-          console.log("Audio autoplay prevented:", error)
-        }
-      }
-    }
-
-    // Small delay to ensure audio is loaded
-    const timeout = setTimeout(playAmbientSound, 500)
-    return () => clearTimeout(timeout)
-  }, [])
-
-  // Scroll animation state
-  const [scrollAnimations, setScrollAnimations] = useState({
-    aboutSection: false,
-    projectsSection: false,
-    contactSection: false,
-  })
-
-  // Intersection Observer for scroll animations
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.3,
-      rootMargin: "0px 0px -100px 0px",
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.getAttribute("data-section")
-          if (sectionId) {
-            setScrollAnimations((prev) => ({
-              ...prev,
-              [sectionId]: true,
-            }))
-          }
-        }
-      })
-    }, observerOptions)
-
-    // Observe sections
-    const aboutSection = document.querySelector('[data-section="aboutSection"]')
-    const projectsSection = document.querySelector('[data-section="projectsSection"]')
-    const contactSection = document.querySelector('[data-section="contactSection"]')
-
-    if (aboutSection) observer.observe(aboutSection)
-    if (projectsSection) observer.observe(projectsSection)
-    if (contactSection) observer.observe(contactSection)
-
-    return () => observer.disconnect()
-  }, [])
-
-  // Handle click sound
-  const handlePageClick = () => {
-    if (clickSoundRef.current) {
-      clickSoundRef.current.currentTime = 0
-      clickSoundRef.current.volume = 0.5
-      clickSoundRef.current.play().catch((error) => {
-        console.log("Click sound failed:", error)
-      })
-    }
-  }
-
-  // Handle wheel click to scroll down
-  const handleWheelClick = () => {
-    window.scrollBy({
-      top: window.innerHeight,
-      behavior: "smooth",
-    })
-    setWheelRotation((prev) => prev + 360)
-  }
-
-  const socialLinks = [
-    {
-      name: "Linkedin",
-      url: "https://www.linkedin.com/in/ygn/",
-      icon: <Linkedin/>,
-      color: "bg-green-500",
-    },
-    {
-      name: "Twitter",
-      url: "https://x.com/ygndotgg",
-      icon: <Twitter className="h-4 w-4" />,
-      color: "bg-gray-800",
-    },
-    {
-      name: "YouTube",
-      url: "https://www.youtube.com/@ankerboii",
-      icon: <Youtube className="h-4 w-4" />,
-      color: "bg-red-500",
-    },
-    {
-      name: "Mail",
-      url: "https://mailto:gaganyarramsetty@gmail.com",
-      icon: <Mail className="h-4 w-4" />,
-      color: "bg-pink-500",
-    },
-  ]
+  
 
   return (
     <div
       className="bg-black font-mono relative"
-      onClick={handlePageClick}
+    
       style={{ cursor: "url(/skull-cursor.png) 16 16, auto" }}
     >
-      <style jsx>{`
+      {/* <style jsx>{`
   * {
     cursor: url(/skull-cursor.png) 16 16, auto !important;
   }
@@ -293,10 +144,10 @@ export default function Portfolio() {
     opacity: 0;
     transform: translateX(-100px);
   }
-`}</style>
+`}</style> */}
 
       {/* Scroll Wheel - Fixed Position */}
-      <div className="fixed bottom-8 right-8 z-50">
+      {/* <div className="md:fixed bottom-8 right-8 z-50">
         <div
           className="cursor-pointer hover:scale-110 transition-transform duration-200"
           onClick={handleWheelClick}
@@ -313,62 +164,100 @@ export default function Portfolio() {
             className="opacity-70 hover:opacity-100 transition-opacity duration-200"
           />
         </div>
-      </div>
+      </div> */}
+      {/* <style jsx>{`
+  * {
+    cursor: url(/skull-cursor.png) 16 16, auto !important;
+  }
+
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0px) rotate(12deg); }
+    50% { transform: translateY(-10px) rotate(12deg); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0px) rotate(-6deg); }
+    50% { transform: translateY(-15px) rotate(-6deg); }
+  }
+  @keyframes float3 {
+    0%, 100% { transform: translateY(0px) rotate(3deg); }
+    50% { transform: translateY(-8px) rotate(3deg); }
+  }
+  @keyframes float4 {
+    0%, 100% { transform: translateY(0px) rotate(-12deg); }
+    50% { transform: translateY(-12px) rotate(-12deg); }
+  }
+  @keyframes float5 {
+    0%, 100% { transform: translateY(0px) rotate(8deg); }
+    50% { transform: translateY(-14px) rotate(8deg); }
+  }
+  @keyframes float6 {
+    0%, 100% { transform: translateY(0px) rotate(-10deg); }
+    50% { transform: translateY(-9px) rotate(-10deg); }
+  }
+
+  @keyframes slideInLeft {
+    from { transform: translateX(-100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes slideInRight {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes slideInUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .animate-slide-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+  }
+  .animate-slide-right {
+    animation: slideInRight 0.8s ease-out forwards;
+  }
+  .animate-slide-up {
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+  .animate-hidden {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+`}</style> */}
+
+{/* Scroll Wheel — hidden on mobile, visible on md+ */}
+{/* <div className=" fixed bottom-8 md:right-8 z-50">
+  <div
+    className="cursor-pointer hover:scale-110 transition-transform duration-200"
+    onClick={handleWheelClick}
+    style={{
+      transform: `rotate(${wheelRotation}deg)`,
+      transition: "transform 0.1s ease-out",
+    }}
+  >
+    <Image
+      src="/scroll-wheel.png"
+      alt="Scroll wheel"
+      width={80}
+      height={80}
+      className="opacity-70 hover:opacity-100 transition-opacity duration-200"
+    />
+  </div>
+</div> */}
+ <main className="relative overflow-x-hidden">
+      {/* Your page content */}
+      <ScrollController/>
+    </main>
+
 
       {/* Audio Elements */}
-      <audio ref={clickSoundRef} preload="auto">
+      {/* <audio ref={clickSoundRef} preload="auto">
         <source src="/click-sound.wav" type="audio/wav" />
       </audio>
       <audio ref={citySfxRef} preload="auto">
         <source src="/street-sfx.mp3" type="audio/mpeg" />
-      </audio>
+      </audio> */}
 
       {/* Mac OS Style Menu Bar */}
-      <div className="bg-black border-b border-gray-800 px-4 py-1 flex justify-between items-center text-white text-sm relative z-30 sticky top-0">
-        <div className="flex  space-x-4">
-        
-          <DropdownMenu>
-            <DropdownMenuContent align="start" className="bg-gray-700 border-gray-600">
-              <DropdownMenuItem className="text-white hover:bg-gray-600">
-                <User className="h-4 w-4 mr-2" />
-                
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-gray-600" />
-              <DropdownMenuItem className="text-white hover:bg-gray-600">Preferences...</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-gray-600 px-2 py-1 h-auto">
-              Gagan Yarramsetty
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="border-gray-600 bg-zinc-800 font-extrabold">
-              {socialLinks.map((link) => (
-                <DropdownMenuItem key={link.name} className="text-white hover:bg-gray-600">
-                  <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center w-full">
-                    {link.icon}
-                    <span className="ml-2">{link.name}</span>
-                    <ExternalLink className="h-3 w-3 ml-auto" />
-                  </a>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        
-        </div>
-       
- <div>Home</div>
-        <div>About</div>
-        <div>Experience</div>
-        <div>Projects</div>
-        <div>Resonance</div>
-        <div>Contact</div>
-        <div className="text-white">{currentTime}</div>
-       
-       
-      </div>
+    
 
       {/* First Section - Main Portfolio */}
       <div className="p-8 min-h-screen flex flex-col items-center justify-center relative">
@@ -465,11 +354,10 @@ export default function Portfolio() {
         </div>
       </div>
 
-     
 <HeroWithSidebar/>
       {/* Third Section - Projects */}
       <div>
-          <div className="max-w-6xl mx-auto">
+          <div id="experience" className="max-w-6xl mx-auto">
         <div className="mb-2">
           <h1 className="text-4xl font-bold text-slate-50 mb-2">Experience & Education</h1>
           <p className="text-slate-400 text-lg">Building my professional journey</p>

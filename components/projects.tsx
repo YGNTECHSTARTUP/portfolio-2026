@@ -76,7 +76,7 @@ export default function ProjectPage() {
  
 
   return (
-    <main className="bg-neutral-950 text-white">
+    <main id="projects" className="bg-neutral-950 text-white">
       {/* HERO: full-viewport row. Left is sticky; right scrolls internally. */}
       <section className="px-4 pt-4 pb-16 lg:pb-4">
         <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[420px_1fr]">

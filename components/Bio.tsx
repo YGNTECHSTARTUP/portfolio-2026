@@ -34,15 +34,15 @@ export default function Bio() {
           Rust 
           </span> and <span className="text-blue-400">
             TypeScript
-            </span> — my entire toolkit is <span className="text-orange-400">Rust-powered.</span>
+            </span> — my entire toolkit is <span className="text-red-500">Rust-powered.</span>
       </p>
       <br/>
-      <p>I <span className="text-purple-400">
+      <p>I <span className="text-teal-400">
         tinker,
         </span> ship things, and occasionally shitpost on <span className="text-yellow-500">X.</span></p>
       <br/>
       <p>Gamer. <span className="text-blue-500">Music on while coding.</span></p>
-      <p>Learning <span className="text-green-500">calisthenics</span>, Mandarin and <span className="text-purple-500">Tai Chi.</span></p>
+      <p>Learning <span className="text-green-500">calisthenics</span>, Mandarin and <span className="text-teal-400">Tai Chi.</span></p>
       <br/>
       <p>Trying to get <span className="text-yellow-400">wings.</span></p>
     </section>

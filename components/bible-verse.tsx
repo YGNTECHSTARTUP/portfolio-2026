@@ -60,30 +60,47 @@ export function BibleVerse() {
   }
 
   return (
-    <Card className="min-w-md w-full max-w-2xl mt-16 p-6 m-10 bg-black text-white border border-white/50">
+    <Card className=" max-w-xl md:max-w-2xl mt-2 md:mt-16   p-4 md:p-6 bg-black text-white border border-white/50 rounded-lg">
       {loading && !verseData ? (
         <div className="text-center text-muted-foreground"><LoaderFour/></div>
       ) : error ? (
         <div className="text-center text-destructive">{error}</div>
       ) : verseData ? (
-        <div className="space-y-4 text-white">
+        <div className="space-y-4">
           {/* Header with book, chapter, and verse */}
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-white">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <h2 className="text-lg md:text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-blue-400">
               {verseData.book} {verseData.chapter}:{verseData.verse}
             </h2>
-            {verseData.version && (
-              <span className="text-sm font-medium text-white px-2 py-1 bg-muted rounded">
-                {verseData.version}
-              </span>
-            )}
+
+            <div className="flex items-center gap-2 sm:gap-3">
+              {verseData.version && (
+                <span className="text-xs sm:text-sm font-medium text-yellow-400 px-2 py-1 bg-yellow-400/5 rounded">
+                  {verseData.version}
+                </span>
+              )}
+
+              {/* New verse button intentionally left out to keep layout compact on small screens */}
+            </div>
           </div>
 
           {/* Verse text */}
-          <p className="text-base leading-relaxed italic text-white">&quot;{verseData.text}&quot;</p>
+          <p className="text-base leading-relaxed italic text-slate-200">&quot;{verseData.text}&quot;</p>
 
-          {/* Refresh button */}
-       
+          {/* Color chips & accents */}
+          <div className="mt-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+               <span className="w-3 h-3 rounded-full bg-blue-500" />
+                     <span className="w-3 h-3 rounded-full bg-green-500" />
+                       <span className="w-3 h-3 rounded-full bg-teal-400" />
+                
+                  <span className="w-3 h-3 rounded-full bg-red-500" />
+                    <span className="w-3 h-3 rounded-full bg-blue-300" />
+                 
+            </div>
+
+ 
+          </div>
         </div>
       ) : null}
     </Card>

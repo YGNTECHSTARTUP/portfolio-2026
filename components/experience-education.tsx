@@ -86,8 +86,68 @@ export function ExperienceEducationGrid() {
     })
   }, [])
 
+  // Returns hover-related classes for a given index (cycles through provided palette)
+  const getHoverClasses = (idx: number) => {
+    switch (idx % 5) {
+      case 0:
+        return {
+          card: "hover:border-blue-500",
+          title: "group-hover:text-blue-400",
+          top: "bg-blue-500/30",
+          badge: "group-hover:border-blue-500",
+          skill: "group-hover:text-blue-400",
+          shadow: "hover:shadow-blue-500/20",
+        }
+      case 1:
+        return {
+          card: "hover:border-green-500",
+          title: "group-hover:text-green-400",
+          top: "bg-green-500/30",
+          badge: "group-hover:border-green-500",
+          skill: "group-hover:text-green-400",
+          shadow: "hover:shadow-green-500/20",
+        }
+      case 2:
+        return {
+          card: "hover:border-teal-400",
+          title: "group-hover:text-teal-300",
+          top: "bg-teal-400/25",
+          badge: "group-hover:border-teal-400",
+          skill: "group-hover:text-teal-300",
+          shadow: "hover:shadow-teal-400/20",
+        }
+      case 3:
+        return {
+          card: "hover:border-red-500",
+          title: "group-hover:text-red-400",
+          top: "bg-red-500/30",
+          badge: "group-hover:border-red-500",
+          skill: "group-hover:text-red-400",
+          shadow: "hover:shadow-red-500/20",
+        }
+      case 4:
+        return {
+          card: "hover:border-blue-300",
+          title: "group-hover:text-blue-300",
+          top: "bg-blue-300/30",
+          badge: "group-hover:border-blue-300",
+          skill: "group-hover:text-blue-300",
+          shadow: "hover:shadow-blue-300/20",
+        }
+      default:
+        return {
+          card: "",
+          title: "",
+          top: "",
+          badge: "",
+          skill: "",
+          shadow: "",
+        }
+    }
+  }
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-max mx-auto p-4 ">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6  auto-rows-max p-4 ">
       {experiences.map((item, index) => (
         <div
           key={item.id}
@@ -95,8 +155,8 @@ export function ExperienceEducationGrid() {
             item.size === "large" ? "md:col-span-2" : "md:col-span-1"
           } ${visibleItems.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
-          <Card className="h-full overflow-hidden border  bg-black shadow-xl hover:shadow-2xl transition-all duration-300 hover-white-on-hover border-white/50 group hover:-translate-y-1 rounded-xl">
-            <div className="h-1  from-slate-500 to-slate-400" />
+          <Card className={`h-full overflow-hidden border bg-black shadow-xl transition-all duration-300 hover:-translate-y-1 rounded-xl group ${getHoverClasses(index).card} ${getHoverClasses(index).shadow} border-white/50`}>
+            <div className={`h-1 ${getHoverClasses(index).top} opacity-0 group-hover:opacity-100 transition-all duration-300`} />
 
             <div className="p-6">
               {/* Badge for type */}
@@ -109,7 +169,7 @@ export function ExperienceEducationGrid() {
                       : item.type === "club"
                         ? "border-slate-600 text-slate-300 bg-transparent"
                         : "border-slate-600 text-slate-300 bg-transparent"
-                  }`}
+                  } ${getHoverClasses(index).badge}`}
                 >
                   {item.type}
                 </Badge>
@@ -117,7 +177,7 @@ export function ExperienceEducationGrid() {
               </div>
 
               {/* Title */}
-              <h3 className="text-lg font-bold text-slate-50 mb-1 group-hover:text-slate-400 transition-colors">
+              <h3 className={`text-lg font-bold text-slate-50 mb-1 transition-colors ${getHoverClasses(index).title}`}>
                 {item.title}
               </h3>
 
@@ -132,7 +192,7 @@ export function ExperienceEducationGrid() {
                 {item.skills.map((skill, idx) => (
                   <span
                     key={idx}
-                    className="inline-block px-2.5 py-1 text-xs font-medium bg-transparent text-slate-300 rounded-full group-hover:bg-transparent group-hover:text-slate-300 group-hover:border group-hover:border-slate-500 transition-all duration-300"
+                    className={`inline-block px-2.5 py-1 text-xs font-medium bg-transparent text-slate-300 rounded-full group-hover:bg-transparent ${getHoverClasses(index).skill} group-hover:border group-hover:border-slate-500 transition-all duration-300`}
                   >
                     {skill}
                   </span>
@@ -140,7 +200,7 @@ export function ExperienceEducationGrid() {
               </div>
             </div>
 
-            <div className="h-0.5 bg-gradient-to-r from-transparent via-slate-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className={`h-0.5 ${getHoverClasses(index).top} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
           </Card>
         </div>
       ))}

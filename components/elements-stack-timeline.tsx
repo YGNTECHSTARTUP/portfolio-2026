@@ -55,7 +55,10 @@ const TimelineCard = ({
     <div
       onMouseEnter={() => onHover(item.id)}
       onMouseLeave={() => onHover(null)}
-      className="border border-gray-700 group/canvas-card flex items-center justify-center dark:border-white/[0.2] max-w-sm w-full mx-auto p-4 relative h-64 rounded-lg overflow-hidden bg-black"
+      onClick={() => onHover(hovered ? null : item.id)}
+      role="button"
+      aria-expanded={hovered}
+      className="border border-gray-700 group/canvas-card flex items-center justify-center dark:border-white/[0.2] max-w-sm w-full mx-auto p-4 relative h-48 md:h-64 rounded-lg overflow-hidden bg-black cursor-pointer"
     >
       {/* Corner decorations */}
       <Icon className="absolute h-6 w-6 -top-3 -left-3 text-white" />
@@ -70,11 +73,14 @@ const TimelineCard = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-10 h-full w-full rounded-lg overflow-hidden"
+            className="absolute inset-0 z-10 h-full w-full rounded-lg overflow-hidden pointer-events-none"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             {/* Use a relative container so Next/Image `fill` works correctly */}
             <div className="relative h-full w-full">
-              <Image src={item.imge} alt={item.label} fill className="object-cover" />
+              <Image src={item.imge} alt={item.label} fill className="object-cover brightness-95" />
+              {/* A subtle dark overlay to keep text readable when shown */}
+              <div className="absolute inset-0 bg-black/20" />
             </div>
           </motion.div>
         )}
@@ -95,14 +101,14 @@ const TimelineCard = ({
 
       {/* Content */}
       <div className="relative z-20">
-        <div className="text-center group-hover/canvas-card:-translate-y-4 group-hover/canvas-card:opacity-0 transition duration-200 w-full mx-auto flex items-center justify-center">
+        <div className={`text-center transition-transform duration-200 w-full mx-auto flex items-center justify-center ${hovered ? '-translate-y-4 opacity-0' : 'translate-y-0 opacity-100'}`}>
           <Image src={item.icon} alt={item.label} width={250} height={250} />
         </div>
-        <h2 className="text-white text-xl opacity-0 group-hover/canvas-card:opacity-100 relative z-10 text-center -mt-20 font-bold group-hover/canvas-card:-translate-y-2 transition duration-200">
+        <h2 className={`text-white text-xl relative z-10 text-center -mt-20 font-bold transition-all duration-200 ${hovered ? 'opacity-100 -translate-y-2' : 'opacity-0 translate-y-2'}`}>
           {item.label}
         </h2>
         {item.statusLabel && (
-          <p className="text-gray-300 text-sm opacity-0 group-hover/canvas-card:opacity-100 transition duration-200 text-center mt-2">
+          <p className={`text-gray-300 text-sm transition duration-200 text-center mt-2 ${hovered ? 'opacity-100' : 'opacity-0'}`}>
             {item.statusLabel}
           </p>
         )}
@@ -115,8 +121,7 @@ export function ElementStackTimeline({
   title = "Elemental Resonance",
   subtitle = "Timeline",
   items,
-  gradientStart = "#0066ff",
-  gradientEnd = "#ffcc00",
+  
 }: ElementStackTimelineProps) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
 
@@ -126,7 +131,7 @@ export function ElementStackTimeline({
   }
 
   return (
-    <div className="w-full bg-black text-white py-16 px-8">
+    <div id="resonance" className="w-full bg-black text-white py-16 px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">

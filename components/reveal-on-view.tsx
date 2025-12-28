@@ -3,7 +3,7 @@
 
 import { useEffect, useRef } from "react"
 import type { CSSProperties, JSX } from "react"
-import { animate, inView, stagger } from "motion"
+import { animate, inView } from "motion"
 
 type RevealOnViewProps = {
   as?: keyof JSX.IntrinsicElements

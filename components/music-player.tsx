@@ -86,11 +86,11 @@ export function MusicPlayer() {
 //   }))
 
   return (
-    <div className="min-w-md mx-auto p-2">
-      <div className="border border-white/50 rounded-xl p-3 flex items-center gap-4 bg-transparent">
+    <div className="min-w-sm md:min-w-lg mx-auto p-2">
+      <div className={`border rounded-xl p-3 flex items-center gap-4 bg-transparent ${isPlaying ? 'border-yellow-400/50 ring-1 ring-yellow-400/10' : 'border-white/50'}`}>
         {/* Album Art */}
         <div className="relative ">
-          <div className="relative w-20 h-20 rounded-md overflow-hidden grayscale opacity-90">
+          <div className={`relative w-20 h-20 rounded-md overflow-hidden ${isPlaying ? 'grayscale-0' : 'grayscale'} opacity-90`}>
             {imageURL ? (
               <Image src={imageURL || "/"} alt={songName} fill className="object-cover" priority />
             ) : (
@@ -101,25 +101,30 @@ export function MusicPlayer() {
           </div>
 
           {/* Small playing indicator */}
-          {isPlaying && (
-            <div className="absolute top-1 right-1 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-xs text-slate-300">Playing</span>
-            </div>
-          )}
+         
         </div>
 
         {/* Track Info */}
         <div className="flex-1 text-left">
           <p className="text-xs font-medium text-slate-400 mb-1">
-            {isPlaying ? <div className="text-green-300">
+            {isPlaying ? <div className="text-yellow-300">
 Jamming...
             </div> : <div className="text-gray-200">
 Last Played
             </div>}
           </p>
-          <h3 className="text-lg font-semibold text-slate-200 leading-tight">{songName}</h3>
+          <h3 className={`text-lg font-semibold leading-tight ${isPlaying ? 'text-yellow-200' : 'text-slate-200'}`}>{songName}</h3>
           <p className="text-sm text-slate-400">{artistName}</p>
+
+          {isPlaying && (
+            <div className="mt-2 flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-blue-500" />
+              <span className="w-3 h-3 rounded-full bg-green-500" />
+              <span className="w-3 h-3 rounded-full bg-teal-400" />
+              <span className="w-3 h-3 rounded-full bg-red-500" />
+              <span className="w-3 h-3 rounded-full bg-blue-300" />
+            </div>
+          )}
         </div>
       </div>
     </div>

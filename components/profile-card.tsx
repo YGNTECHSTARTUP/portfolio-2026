@@ -20,10 +20,10 @@ export default function ProfileCard({ name, title, subtitle, imageUrl, imageAlt 
         className={`flex items-center gap-6 p-6 rounded-3xl border transition-all duration-300 `}
       >
         {/* Profile Image */}
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <div
             className={`relative w-32 h-32 rounded-2xl overflow-hidden transition-all duration-300 ${
-              isHovered ? "grayscale" : "grayscale-0"
+              isHovered ? "scale-105" : "grayscale-0"
             }`}
           >
             <Image src={imageUrl || "/placeholder.svg"} alt={imageAlt} fill className="object-cover" />
@@ -32,7 +32,7 @@ export default function ProfileCard({ name, title, subtitle, imageUrl, imageAlt 
 
         {/* Text Content */}
         <div className="flex flex-col gap-1">
-          <h2 className="font-mono text-2xl font-bold text-white tracking-tight">{name}</h2>
+          <h2 className={`font-mono text-2xl font-bold text-white tracking-tight ${isHovered ? "text-yellow-500" : "text-white"}`}>{name}</h2>
           <p
             className={`text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${
               isHovered ? "text-gray-400" : "text-white"
