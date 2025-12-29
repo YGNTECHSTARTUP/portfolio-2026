@@ -260,7 +260,7 @@ export default function Portfolio() {
     
 
       {/* First Section - Main Portfolio */}
-      <div className="p-8 min-h-screen flex flex-col items-center justify-center relative">
+      <div className="p-4 sm:p-8 min-h-screen flex flex-col items-center justify-center relative">
         {/* Static Banner */}
        <div className="w-full max-w-2xl">
         <ProfileCard name="Gagan Yarramsetty" title="System Engineer | Rustacean🦀" subtitle="YGN | Xiao" imageUrl="/ban.jpeg" />
@@ -290,9 +290,9 @@ export default function Portfolio() {
     </div> */}
 
         {/* Overlapping Images */}
-        <div className="relative w-[600px] h-[500px]">
+        <div className="relative w-full max-w-[600px] h-auto sm:h-[500px]">
           <div
-            className="absolute top-16 right-0 z-20 mx-28 my-4 opacity-50 opacity-40"
+            className="absolute top-16 right-0 z-20 mx-4 sm:mx-28 my-4 opacity-40"
             style={{ animation: "float2 4s ease-in-out infinite" }}
           >
             <Image
@@ -300,11 +300,11 @@ export default function Portfolio() {
               alt="Glitch art"
               width={250}
               height={250}
-              className="rounded border-2 border-gray-600"
+              className="rounded border-2 border-gray-600 w-[140px] sm:w-[250px] h-auto"
             />
           </div>
           <div
-            className="absolute bottom-16 left-8 z-30 mx-14 opacity-35"
+            className="absolute bottom-16 left-8 z-30 mx-4 sm:mx-14 opacity-35"
             style={{ animation: "float3 5s ease-in-out infinite" }}
           >
             <Image
@@ -312,11 +312,11 @@ export default function Portfolio() {
               alt="Studio microphone"
               width={220}
               height={220}
-              className="rounded border-2 border-gray-600"
+              className="rounded border-2 border-gray-600 w-[120px] sm:w-[220px] h-auto"
             />
           </div>
           <div
-            className="absolute bottom-0 right-12 z-40 mx-11 my-32 opacity-70"
+            className="absolute bottom-0 right-12 sm:right-12 z-40 mx-4 sm:mx-11 my-32 opacity-70"
             style={{ animation: "float4 7s ease-in-out infinite" }}
           >
             <Image
@@ -324,11 +324,11 @@ export default function Portfolio() {
               alt="Dog on beach"
               width={200}
               height={200}
-              className="rounded border-2 border-gray-600"
+              className="rounded border-2 border-gray-600 w-[110px] sm:w-[200px] h-auto"
             />
           </div>
           <div
-            className="absolute top-32 left-0 z-25 mx-14 my-px py-0 px-1 opacity-50 "
+            className="absolute top-32 left-0 z-25 mx-4 sm:mx-14 my-px py-0 px-1 opacity-50 "
             style={{ animation: "float5 5.5s ease-in-out infinite" }}
           >
             <Image
@@ -336,11 +336,11 @@ export default function Portfolio() {
               alt="Portrait with caduceus"
               width={240}
               height={240}
-              className="rounded border-2 border-gray-600"
+              className="rounded border-2 border-gray-600 w-[140px] sm:w-[240px] h-auto"
             />
           </div>
           <div
-            className="absolute bottom-8 right-48 z-35 py-px my-1 px-0 mx-1.5 opacity-45"
+            className="absolute bottom-8 right-12 sm:right-48 z-35 py-px my-1 px-0 mx-1.5 opacity-45"
             style={{ animation: "float6 4.5s ease-in-out infinite" }}
           >
             <Image
@@ -348,7 +348,7 @@ export default function Portfolio() {
               alt="Lit candle"
               width={190}
               height={190}
-              className="rounded border-2 border-gray-600"
+              className="rounded border-2 border-gray-600 w-[100px] sm:w-[190px] h-auto"
             />
           </div>
         </div>
@@ -357,10 +357,10 @@ export default function Portfolio() {
 <HeroWithSidebar/>
       {/* Third Section - Projects */}
       <div>
-          <div id="experience" className="min-w-6xl mx-auto text-center">
+          <div id="experience" className="w-full px-4 sm:px-6 mx-auto text-center max-w-6xl">
         <div className="mb-2">
-          <h1 className="text-4xl font-bold text-slate-50 mb-2">Experience & Education</h1>
-          <p className="text-slate-400 text-lg">Building my professional journey</p>
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-50 mb-2">Experience & Education</h1>
+          <p className="text-slate-400 text-base sm:text-lg">Building my professional journey</p>
         </div>
         <ExperienceEducationGrid />
       </div>

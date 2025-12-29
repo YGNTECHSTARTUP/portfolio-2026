@@ -147,18 +147,18 @@ export function ExperienceEducationGrid() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6  auto-rows-max p-4 ">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-max px-4 sm:px-6 py-6 mx-auto w-full max-w-6xl">
       {experiences.map((item, index) => (
         <div
           key={item.id}
           className={`transition-all duration-500 transform ${
             item.size === "large" ? "md:col-span-2" : "md:col-span-1"
-          } ${visibleItems.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          } ${visibleItems.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 sm:translate-y-8"}`}
         >
-          <Card className={`h-full overflow-hidden border bg-black shadow-xl transition-all duration-300 hover:-translate-y-1 rounded-xl group ${getHoverClasses(index).card} ${getHoverClasses(index).shadow} border-white/50`}>
+          <Card className={`h-full overflow-hidden border bg-black shadow-xl transition-all duration-300 hover:-translate-y-1 rounded-lg sm:rounded-xl group ${getHoverClasses(index).card} ${getHoverClasses(index).shadow} border-white/50`}>
             <div className={`h-1 ${getHoverClasses(index).top} opacity-0 group-hover:opacity-100 transition-all duration-300`} />
 
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               {/* Badge for type */}
               <div className="flex items-center gap-2 mb-4">
                 <Badge
@@ -177,22 +177,22 @@ export function ExperienceEducationGrid() {
               </div>
 
               {/* Title */}
-              <h3 className={`text-lg font-bold text-slate-50 mb-1 transition-colors ${getHoverClasses(index).title}`}>
+              <h3 className={`text-base sm:text-lg md:text-xl font-bold text-slate-50 mb-1 transition-colors ${getHoverClasses(index).title}`}>
                 {item.title}
               </h3>
 
               {/* Company */}
-              <p className="text-sm font-semibold text-slate-400 mb-3">{item.company}</p>
+              <p className="text-sm md:text-base font-semibold text-slate-400 mb-3">{item.company}</p>
 
               {/* Description */}
-              <p className="text-sm text-slate-400 mb-4 leading-relaxed">{item.description}</p>
+              <p className="text-sm md:text-base text-slate-400 mb-4 leading-relaxed">{item.description}</p>
 
               {/* Skills */}
               <div className="flex flex-wrap gap-2">
                 {item.skills.map((skill, idx) => (
                   <span
                     key={idx}
-                    className={`inline-block px-2.5 py-1 text-xs font-medium bg-transparent text-slate-300 rounded-full group-hover:bg-transparent ${getHoverClasses(index).skill} group-hover:border group-hover:border-slate-500 transition-all duration-300`}
+                    className={`inline-block px-2.5 py-1 text-xs sm:text-sm font-medium bg-transparent text-slate-300 rounded-full group-hover:bg-transparent ${getHoverClasses(index).skill} group-hover:border group-hover:border-slate-500 transition-all duration-300`}
                   >
                     {skill}
                   </span>
