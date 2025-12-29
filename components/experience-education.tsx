@@ -10,7 +10,7 @@ const experiences = [
     type: "work",
     title: "Backend Developer Intern",
     company: "ISKCON HUBLI",
-    status: "Completed",
+    status: "Completed 6months",
     description:
       " I collaborated closely with a Senior Developer to architect and develop a production-grade backend system for a global donation collection platform—ISKCON Hubli Campaigns. The platform enables users worldwide to create and manage fundraising campaigns for temple construction",
 
@@ -22,7 +22,7 @@ const experiences = [
     type: "work",
     title: "Industrial Trainee",
     company: "CENTRAL INSTITUTE OF TOOL DESIGN",
-    status: "Completed",
+    status: "Completed 6months",
     description:
       " I got exposure to industry standards in product manufacturing and learned how low-level systems work. I explored meta-programming, compilers, and the basics of system operations. ",
     skills: ["System Design", "System Programming","Product Deign" ],
@@ -34,7 +34,7 @@ const experiences = [
     type: "club",
     title: "Codeiam Webdevelopment Lead",
     company: "Codeiam",
-    status: "Completed",
+    status: "Completed 1year",
     description:
       " Leading the web development Chapter of Codeiam, organizing workshops, hackathons, and mentoring students in web technologies.",
     skills: ["Leadership", "Mentoring", "WebDevelopment"],
@@ -45,7 +45,7 @@ const experiences = [
     type: "club",
     title: "Technical Head Of Web Development",
     company: "GDG AUCE",
-    status: "Completed",
+    status: "Completed 1year",
     description:
       "Leading Web Dev Project initiatives and mentoring students. Organizing workshops and hackathons for community learning.",
     skills: ["Nextjs", "Tailwind CSS", "Typescript","Leadership"],
