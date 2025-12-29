@@ -260,9 +260,9 @@ export default function Portfolio() {
     
 
       {/* First Section - Main Portfolio */}
-      <div className="p-4 sm:p-8 min-h-screen flex flex-col items-center justify-center relative">
+      <div className="p-4 sm:p-8 md:min-h-screen flex flex-col items-center md:justify-center justify-start relative">
         {/* Static Banner */}
-       <div className="w-full max-w-2xl">
+       <div className="w-full max-w-2xl ">
         <ProfileCard name="Gagan Yarramsetty" title="System Engineer | Rustacean🦀" subtitle="YGN | Xiao" imageUrl="/ban.jpeg" />
       </div>
          {/* <div className="mx-auto mt-8 absolute right-0 bottom-0 ">
@@ -289,8 +289,8 @@ export default function Portfolio() {
       />
     </div> */}
 
-        {/* Overlapping Images */}
-        <div className="relative w-full max-w-[600px] h-auto sm:h-[500px]">
+        {/* Overlapping Images (hidden on small screens) */}
+        <div className="hidden md:block relative w-full max-w-[600px] h-auto sm:h-[500px] mt-6 md:mt-0">
           <div
             className="absolute top-16 right-0 z-20 mx-4 sm:mx-28 my-4 opacity-40"
             style={{ animation: "float2 4s ease-in-out infinite" }}
