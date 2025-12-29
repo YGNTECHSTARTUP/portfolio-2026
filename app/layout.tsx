@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "Gagan Yarramsetty",
   description: "A Personal Portfolio Of Gagan Yarramsetty 1",
 };
+const dataWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
 export default function RootLayout({
   children,
@@ -25,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <script defer src="https://cloud.umami.is/script.js" data-website-id="3744b992-6d1e-44be-b4c8-1b34457dc4f6"></script>
+      <script defer src="https://cloud.umami.is/script.js" data-website-id={dataWebsiteId}></script>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
