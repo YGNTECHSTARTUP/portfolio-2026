@@ -41,17 +41,6 @@ const experiences = [
     size: "medium",
   },
    {
-    id: 3,
-    type: "club",
-    title: "Technical Head Of Web Development",
-    company: "GDG AUCE",
-    status: "Completed 1 year",
-    description:
-      "Leading Web Dev Project initiatives and mentoring students. Organizing workshops and hackathons for community learning.",
-    skills: ["Nextjs", "Tailwind CSS", "Typescript","Leadership"],
-    size: "large"
-  },
-  {
     id: 5,
     type: "education",
     title: "B.Tech in Information Technology",
@@ -62,6 +51,18 @@ const experiences = [
     skills: ["Programming", "Networking", "System Engineering"],
     size: "large", // spans 2 columns
   },
+   {
+    id: 3,
+    type: "club",
+    title: "Technical Head Of Web Development",
+    company: "GDG AUCE",
+    status: "Completed 1 year",
+    description:
+      "Leading Web Dev Project initiatives and mentoring students. Organizing workshops and hackathons for community learning.",
+    skills: ["Nextjs", "Tailwind CSS", "Typescript","Leadership"],
+    size: "medium"
+  },
+ 
   {
     id: 6,
     type: "education",
@@ -71,7 +72,7 @@ const experiences = [
     description:
       "Pursuing a Diploma in Computer Science with a focus on Networking and Web Development. CGPA: 9.3/10",
     skills: ["Data Structures", "Algorithms", "Web Development"],
-    size: "large", // spans 2 columns
+    size: "medium", // spans 2 columns
   },
 ]
 
