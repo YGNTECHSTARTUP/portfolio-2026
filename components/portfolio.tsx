@@ -357,7 +357,7 @@ export default function Portfolio() {
 <HeroWithSidebar/>
       {/* Third Section - Projects */}
       <div>
-          <div id="experience" className="max-w-6xl mx-auto">
+          <div id="experience" className="min-w-6xl mx-auto text-center">
         <div className="mb-2">
           <h1 className="text-4xl font-bold text-slate-50 mb-2">Experience & Education</h1>
           <p className="text-slate-400 text-lg">Building my professional journey</p>
