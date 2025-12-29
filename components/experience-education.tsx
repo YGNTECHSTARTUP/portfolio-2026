@@ -71,7 +71,7 @@ const experiences = [
     description:
       "Pursuing a Diploma in Computer Science with a focus on Networking and Web Development. CGPA: 9.3/10",
     skills: ["Data Structures", "Algorithms", "Web Development"],
-    size: "medium", // spans 2 columns
+    size: "large", // spans 2 columns
   },
 ]
 
