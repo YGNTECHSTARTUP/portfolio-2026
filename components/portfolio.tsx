@@ -17,7 +17,7 @@ const timelineItems: TimelineItem[] = [
     id: "Hydro",
     label: "Hydro",
     date: "Jan 2026",
-    description: "Distributed Systems",
+    description: "Networking",
     gradientColor: "#0066ff",
     icon: "/hydro.jpg",
     status: "in-progress",
@@ -27,7 +27,7 @@ const timelineItems: TimelineItem[] = [
     id: "Dendro",
     label: "Dendro",
     date: "May 2026",
-    description: "Database",
+    description: "Distributed Systems",
     gradientColor: "#00cc00",
     icon: "/dendro.jpg",
     status: "upcoming",
@@ -356,18 +356,37 @@ export default function Portfolio() {
 
 <HeroWithSidebar/>
       {/* Third Section - Projects */}
-      <div>
-          <div id="experience" className="w-full px-4 sm:px-6 mx-auto text-center max-w-6xl">
-        <div className="mb-2">
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-50 mb-2">Experience & Education</h1>
-          <p className="text-slate-400 text-base sm:text-lg">Building my professional journey</p>
-        </div>
-        <ExperienceEducationGrid />
-      </div>
-       {/* <ExperienceEducationGrid/> */}
-        <ProjectPage/>
-     <ElementStackTimeline items={timelineItems} />
-      </div>
+    <div>
+  {/* Experience Section */}
+  <section
+    id="experience"
+    className="
+      w-full
+      px-4 sm:px-6 lg:px-8
+      mx-auto
+      max-w-6xl
+      lg:max-w-screen-2xl
+    "
+  >
+    {/* Heading stays centered */}
+    <div className="mb-4 text-center">
+      <h1 className="text-3xl sm:text-4xl font-bold text-slate-50 mb-2">
+        Experience & Education
+      </h1>
+      <p className="text-slate-400 text-base sm:text-lg">
+        Building my professional journey
+      </p>
+    </div>
+
+    {/* Bento grid controls its own width */}
+    <ExperienceEducationGrid />
+  </section>
+
+  {/* Other sections remain untouched */}
+  <ProjectPage />
+  <ElementStackTimeline items={timelineItems} />
+</div>
+
 
 
       {/* Fourth Section - Contact */}

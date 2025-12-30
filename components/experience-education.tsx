@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import index from "swr"
 
 const experiences = [
   {
@@ -12,10 +13,9 @@ const experiences = [
     company: "ISKCON HUBLI",
     status: "Completed 6 months",
     description:
-      " I collaborated closely with a Senior Developer to architect and develop a production-grade backend system for a global donation collection platform—ISKCON Hubli Campaigns. The platform enables users worldwide to create and manage fundraising campaigns for temple construction",
-
+      "I collaborated closely with a Senior Developer to architect and develop a production-grade backend system for a global donation collection platform—ISKCON Hubli Campaigns.",
     skills: ["Database Design", "Razor Pay Integration", "API Development"],
-    size: "large", // spans 2 columns
+    size: "large",
   },
   {
     id: 2,
@@ -24,45 +24,43 @@ const experiences = [
     company: "CENTRAL INSTITUTE OF TOOL DESIGN",
     status: "Completed 6 months",
     description:
-      " I got exposure to industry standards in product manufacturing and learned how low-level systems work. I explored meta-programming, compilers, and the basics of system operations. ",
-    skills: ["System Design", "System Programming","Product Deign" ],
+      "I gained exposure to industry standards in product manufacturing and learned how low-level systems work.",
+    skills: ["System Design", "System Programming", "Product Design"],
     size: "medium",
   },
- 
   {
     id: 4,
     type: "club",
-    title: "Codeiam Webdevelopment Lead",
+    title: "Codeiam Web Development Lead",
     company: "Codeiam",
     status: "Completed 1 year",
     description:
-      " Leading the web development Chapter of Codeiam, organizing workshops, hackathons, and mentoring students in web technologies.",
-    skills: ["Leadership", "Mentoring", "WebDevelopment"],
+      "Leading the web development chapter of Codeiam, organizing workshops and mentoring students.",
+    skills: ["Leadership", "Mentoring", "Web Development"],
     size: "medium",
   },
-   {
+  {
+    id: 3,
+    type: "club",
+    title: "Technical Head of Web Development",
+    company: "GDG AUCE",
+    status: "Completed 1 year",
+    description:
+      "Leading web development initiatives and mentoring students through community programs.",
+    skills: ["Next.js", "Tailwind CSS", "TypeScript", "Leadership"],
+    size: "large",
+  },
+  {
     id: 5,
     type: "education",
     title: "B.Tech in Information Technology",
     company: "Andhra University College of Engineering",
     status: "2023 - 2027",
     description:
-      "Pursuing a degree in Information Technology with a focus on Networking and Web Development. Current CGPA: 8.3/10",
+      "Pursuing a degree in Information Technology with a focus on Networking and Web Development.",
     skills: ["Programming", "Networking", "System Engineering"],
-    size: "large", // spans 2 columns
+    size: "large",
   },
-   {
-    id: 3,
-    type: "club",
-    title: "Technical Head Of Web Development",
-    company: "GDG AUCE",
-    status: "Completed 1 year",
-    description:
-      "Leading Web Dev Project initiatives and mentoring students. Organizing workshops and hackathons for community learning.",
-    skills: ["Nextjs", "Tailwind CSS", "Typescript","Leadership"],
-    size: "medium"
-  },
- 
   {
     id: 6,
     type: "education",
@@ -70,9 +68,9 @@ const experiences = [
     company: "AANM & VVRSR Polytechnic College",
     status: "2021 - 2023",
     description:
-      "Pursuing a Diploma in Computer Science with a focus on Networking and Web Development. CGPA: 9.3/10",
+      "Completed a Diploma in Computer Science with a focus on Networking and Web Development.",
     skills: ["Data Structures", "Algorithms", "Web Development"],
-    size: "medium", // spans 2 columns
+    size: "medium",
   },
 ]
 
@@ -83,128 +81,141 @@ export function ExperienceEducationGrid() {
     experiences.forEach((_, index) => {
       setTimeout(() => {
         setVisibleItems((prev) => [...prev, index])
-      }, index * 100)
+      }, index * 80)
     })
   }, [])
 
-  // Returns hover-related classes for a given index (cycles through provided palette)
-  const getHoverClasses = (idx: number) => {
-    switch (idx % 5) {
-      case 0:
-        return {
-          card: "hover:border-blue-500",
-          title: "group-hover:text-blue-400",
-          top: "bg-blue-500/30",
-          badge: "group-hover:border-blue-500",
-          skill: "group-hover:text-blue-400",
-          shadow: "hover:shadow-blue-500/20",
-        }
-      case 1:
-        return {
-          card: "hover:border-green-500",
-          title: "group-hover:text-green-400",
-          top: "bg-green-500/30",
-          badge: "group-hover:border-green-500",
-          skill: "group-hover:text-green-400",
-          shadow: "hover:shadow-green-500/20",
-        }
-      case 2:
-        return {
-          card: "hover:border-teal-400",
-          title: "group-hover:text-teal-300",
-          top: "bg-teal-400/25",
-          badge: "group-hover:border-teal-400",
-          skill: "group-hover:text-teal-300",
-          shadow: "hover:shadow-teal-400/20",
-        }
-      case 3:
-        return {
-          card: "hover:border-red-500",
-          title: "group-hover:text-red-400",
-          top: "bg-red-500/30",
-          badge: "group-hover:border-red-500",
-          skill: "group-hover:text-red-400",
-          shadow: "hover:shadow-red-500/20",
-        }
-      case 4:
-        return {
-          card: "hover:border-blue-300",
-          title: "group-hover:text-blue-300",
-          top: "bg-blue-300/30",
-          badge: "group-hover:border-blue-300",
-          skill: "group-hover:text-blue-300",
-          shadow: "hover:shadow-blue-300/20",
-        }
-      default:
-        return {
-          card: "",
-          title: "",
-          top: "",
-          badge: "",
-          skill: "",
-          shadow: "",
-        }
-    }
-  }
+  const accents = [
+    {
+      bar: "bg-blue-500/40",
+      border: "hover:border-blue-400/60",
+      glow: "hover:shadow-[0_0_30px_-10px_rgba(59,130,246,0.6)]",
+    },
+    {
+      bar: "bg-green-500/40",
+      border: "hover:border-green-400/60",
+      glow: "hover:shadow-[0_0_30px_-10px_rgba(34,197,94,0.6)]",
+    },
+    {
+      bar: "bg-teal-400/40",
+      border: "hover:border-teal-300/60",
+      glow: "hover:shadow-[0_0_30px_-10px_rgba(45,212,191,0.6)]",
+    },
+    {
+      bar: "bg-red-500/40",
+      border: "hover:border-red-400/60",
+      glow: "hover:shadow-[0_0_30px_-10px_rgba(239,68,68,0.6)]",
+    },
+    {
+      bar: "bg-blue-300/40",
+      border: "hover:border-blue-300/60",
+      glow: "hover:shadow-[0_0_30px_-10px_rgba(147,197,253,0.6)]",
+    },
+  ]
+
+  // placeholder to satisfy TS
+  // We'll index inline below instead (cleaner)
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-max px-4 sm:px-6 py-6 mx-auto w-full max-w-6xl">
-      {experiences.map((item, index) => (
-        <div
-          key={item.id}
-          className={`transition-all duration-500 transform ${
-            item.size === "large" ? "md:col-span-2" : "md:col-span-1"
-          } ${visibleItems.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 sm:translate-y-8"}`}
-        >
-          <Card className={`h-full overflow-hidden border bg-black shadow-xl transition-all duration-300 hover:-translate-y-1 rounded-lg sm:rounded-xl group ${getHoverClasses(index).card} ${getHoverClasses(index).shadow} border-white/50`}>
-            <div className={`h-1 ${getHoverClasses(index).top} opacity-0 group-hover:opacity-100 transition-all duration-300`} />
+    <div
+      className="
+        grid
+        grid-cols-1
+        md:grid-cols-2
+        lg:grid-cols-3
+        gap-4 md:gap-6
+        auto-rows-fr
+        px-4 sm:px-6 lg:px-8
+        py-6
+        mx-auto
+        w-full
+        max-w-7xl
+      "
+    >
+      {experiences.map((item, index) => {
+        const a = accents[index % accents.length]
 
-            <div className="p-4 sm:p-6">
-              {/* Badge for type */}
-              <div className="flex items-center gap-2 mb-4">
-                <Badge
-                  variant="outline"
-                  className={`capitalize text-xs font-semibold border ${
-                    item.type === "work"
-                      ? "border-slate-600 text-slate-300 bg-transparent"
-                      : item.type === "club"
-                        ? "border-slate-600 text-slate-300 bg-transparent"
-                        : "border-slate-600 text-slate-300 bg-transparent"
-                  } ${getHoverClasses(index).badge}`}
-                >
-                  {item.type}
-                </Badge>
-                <span className="text-xs text-slate-500 font-medium">{item.status}</span>
-              </div>
+        return (
+          <div
+            key={item.id}
+            className={`
+              transition-all duration-500
+              ${
+                item.size === "large"
+                  ? "md:col-span-2 lg:col-span-2"
+                  : "md:col-span-1 lg:col-span-1"
+              }
+              ${
+                visibleItems.includes(index)
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-6"
+              }
+            `}
+          >
+            <Card
+              className={`
+                h-full
+                flex flex-col
+                rounded-lg sm:rounded-xl
+                border border-white/20
+                bg-white/5
+                backdrop-blur-xl
+                shadow-lg
+                transition-all duration-300
+                hover:-translate-y-1
+                ${a.border}
+                ${a.glow}
+              `}
+            >
+              {/* Accent bar */}
+              <div className={`h-1 ${a.bar}`} />
 
-              {/* Title */}
-              <h3 className={`text-base sm:text-lg md:text-xl font-bold text-slate-50 mb-1 transition-colors ${getHoverClasses(index).title}`}>
-                {item.title}
-              </h3>
-
-              {/* Company */}
-              <p className="text-sm md:text-base font-semibold text-slate-400 mb-3">{item.company}</p>
-
-              {/* Description */}
-              <p className="text-sm md:text-base text-slate-400 mb-4 leading-relaxed">{item.description}</p>
-
-              {/* Skills */}
-              <div className="flex flex-wrap gap-2">
-                {item.skills.map((skill, idx) => (
-                  <span
-                    key={idx}
-                    className={`inline-block px-2.5 py-1 text-xs sm:text-sm font-medium bg-transparent text-slate-300 rounded-full group-hover:bg-transparent ${getHoverClasses(index).skill} group-hover:border group-hover:border-slate-500 transition-all duration-300`}
+              <div className="flex-1 p-4 sm:p-6 flex flex-col">
+                <div className="flex items-center gap-2 mb-3">
+                  <Badge
+                    variant="outline"
+                    className="capitalize text-xs border-white/30 text-slate-300 bg-white/5"
                   >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
+                    {item.type}
+                  </Badge>
+                  <span className="text-xs text-slate-400">{item.status}</span>
+                </div>
 
-            <div className={`h-0.5 ${getHoverClasses(index).top} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-          </Card>
-        </div>
-      ))}
+                <h3 className="text-base sm:text-lg font-bold text-slate-50 mb-1">
+                  {item.title}
+                </h3>
+
+                <p className="text-sm font-semibold text-slate-400 mb-2">
+                  {item.company}
+                </p>
+
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  {item.description}
+                </p>
+
+                {/* Skills pinned to bottom */}
+                <div className="mt-auto pt-4 flex flex-wrap gap-2">
+                  {item.skills.map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="
+                        text-xs sm:text-sm
+                        text-slate-300
+                        border border-white/20
+                        bg-white/5
+                        rounded-full
+                        px-2.5 py-1
+                      "
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          </div>
+        )
+      })}
     </div>
   )
 }

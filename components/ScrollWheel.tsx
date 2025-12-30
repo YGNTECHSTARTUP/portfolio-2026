@@ -9,21 +9,25 @@ export default function ScrollController() {
 
   /* ---------- Wheel Scroll Hijack ---------- */
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault()
+  const SCROLL_MULTIPLIER = 2.2// ← increases scroll coverage
 
-      const delta = e.deltaY
-      setWheelRotation((prev) => prev + delta * 0.5)
+  const handleWheel = (e: WheelEvent) => {
+    e.preventDefault()
 
-      window.scrollBy({
-        top: delta,
-        behavior: "smooth",
-      })
-    }
+    const delta = e.deltaY * SCROLL_MULTIPLIER
 
-    window.addEventListener("wheel", handleWheel, { passive: false })
-    return () => window.removeEventListener("wheel", handleWheel)
-  }, [])
+    setWheelRotation((prev) => prev + delta * 0.2)
+
+    window.scrollBy({
+      top: delta,
+      left: 0,
+    })
+  }
+
+  window.addEventListener("wheel", handleWheel, { passive: false })
+  return () => window.removeEventListener("wheel", handleWheel)
+}, [])
+
 
   /* ---------- Click SFX ---------- */
   const handlePageClick = () => {
@@ -44,9 +48,7 @@ export default function ScrollController() {
 
   return (
     <>
-      {/* click sound */}
-      <audio ref={clickSoundRef} src="/click.mp3" preload="auto" />
-
+    
       {/* overlay container */}
       <div
         onClick={handlePageClick}
